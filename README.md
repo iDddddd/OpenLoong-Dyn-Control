@@ -218,5 +218,5 @@ Developers are welcome to contribute to the optimization and improvement of this
 
 [💬 Start a Discussion](https://github.com/orgs/loongOpen/discussions) | [📝 Report an Issue](https://github.com/loongOpen/Openloong-dyn-control/issues) | [📨 Submit a Change Request](https://github.com/loongOpen/Openloong-dyn-control/pulls)
 
-For any questions or suggestions regarding this code, please contact<open@openloong.org.cn>
+For any questions or suggestions regarding this code, please contact <open@openloong.org.cn>
 
