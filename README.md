@@ -10,8 +10,8 @@ The OpenLoong open-source project is a collaborative initiative operated by Huma
 Shanghai Humanoid Robotics Manufacturing Innovation Center, and the OpenAtom Foundation. This repository provides a
 humanoid robot control framework based on MPC (Model Predictive Control) and WBC (Whole-Body Control), which can be
 deployed on the Mujoco simulation platform. Based on the "Qinglong" robot model from the Shanghai Humanoid Robotics
-Innovation Center, it offers three motion examples: [walking](https://atomgit.com/openloong/openloong-dyn-control/blob/master/demo/walk_wbc.cpp),
-[jumping](https://atomgit.com/openloong/openloong-dyn-control/blob/master/demo/jump_mpc.cpp), and [blind obstacle stepping](https://atomgit.com/openloong/openloong-dyn-control/blob/master/demo/walk_mpc_wbc.cpp). The physical
+Innovation Center, it offers three motion examples: [walking](https://github.com/loongOpen/Openloong-dyn-control/blob/main/demo/walk_wbc.cpp),
+[jumping](https://github.com/loongOpen/Openloong-dyn-control/blob/main/demo/jump_mpc.cpp), and [blind obstacle stepping](https://github.com/loongOpen/Openloong-dyn-control/blob/main/demo/walk_mpc_wbc.cpp). The physical
 prototype has achieved <b>walking</b> and <b>blind obstacle stepping <b>motions.
 
 📖 **[Read this in Chinese / 阅读中文版](./README-zh.md)**
@@ -40,7 +40,7 @@ prototype has achieved <b>walking</b> and <b>blind obstacle stepping <b>motions.
 2024.09.11
 
 1. Added a new branch named "low\_damping\_model," which aligns closely with  the joint response of the physical prototype. This branch provides two  demos: `walk_wbc_joystick` and `walk_mpc_wbc_joystick`.
-2. Added the **Model Replacement** documentation[Tutorial](https://atomgit.com/openloong/openloong-dyn-control/blob/master/Tutorial.md)。
+2. Added the **Model Replacement** documentation[Tutorial](https://github.com/loongOpen/Openloong-dyn-control/blob/main/Tutorial.md)。
 
 ## Environment Installation
 
@@ -66,7 +66,7 @@ sudo apt install libglu1-mesa-dev freeglut3-dev
 
 ```Bash
 # Clone
-git clone https://atomgit.com/openloong/openloong-dyn-control.git
+git clone https://github.com/loongOpen/Openloong-dyn-control.git
 
 # Build
 cd openloong-dyn-control
@@ -187,7 +187,7 @@ DataBus::LegState legState=DataBus::RS;                // Initial swing leg
 
 **Model Replacement Guide**
 
-Refer to the[Tutorial](https://atomgit.com/openloong/openloong-dyn-control/blob/master/Tutorial.md)document for model replacement.
+Refer to the[Tutorial](https://github.com/loongOpen/Openloong-dyn-control/blob/main/Tutorial.md)document for model replacement.
 
 ## Reference
 
@@ -207,7 +207,7 @@ If you use the code from this open-source project, please cite it as follows:
 @software{Robot2024OpenLoong,
   author = {Humanoid Robot (Shanghai) Co., Ltd},
   title = {{OpenLoong-DynamicsControl: Motion control framework of humanoid robot based on MPC and WBC}},
-  url = {https://atomgit.com/openloong/openloong-dyn-control.git},
+  url = {https://github.com/loongOpen/Openloong-dyn-control.git},
   year = {2024}
 }
 ```

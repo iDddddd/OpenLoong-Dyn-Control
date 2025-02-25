@@ -6,7 +6,7 @@
 
 欢迎访问 🐉 OpenLoong 开源项目代码仓库！
 
-OpenLoong开源项目是由人形机器人（上海）有限公司、上海人形机器人制造业创新中心与开放原子开源基金会（OpenAtom Foundation）共同运营的开源项目。本仓库提供了一套基于 MPC 与 WBC 的仿人机器人控制框架，可部署在 Mujoco 仿真平台上。基于上海人形机器人创新中心“青龙”机器人模型，提供[行走](https://atomgit.com/openloong/openloong-dyn-control/blob/master/demo/walk_wbc.cpp)、[跳跃](https://atomgit.com/openloong/openloong-dyn-control/blob/master/demo/jump_mpc.cpp)、[盲踩障碍物](https://atomgit.com/openloong/openloong-dyn-control/blob/master/demo/walk_mpc_wbc.cpp)三种运动示例，在实物样机上实现了机器人的<b>行走</b>、<b>盲踩障碍</b>两种运动。
+OpenLoong开源项目是由人形机器人（上海）有限公司、上海人形机器人制造业创新中心与开放原子开源基金会（OpenAtom Foundation）共同运营的开源项目。本仓库提供了一套基于 MPC 与 WBC 的仿人机器人控制框架，可部署在 Mujoco 仿真平台上。基于上海人形机器人创新中心“青龙”机器人模型，提供[行走](https://github.com/loongOpen/Openloong-dyn-control/blob/main/demo/walk_wbc.cpp)、[跳跃](https://github.com/loongOpen/Openloong-dyn-control/blob/main/demo/jump_mpc.cpp)、[盲踩障碍物](https://github.com/loongOpen/Openloong-dyn-control/blob/main/demo/walk_mpc_wbc.cpp)三种运动示例，在实物样机上实现了机器人的<b>行走</b>、<b>盲踩障碍</b>两种运动。
 
 ## 项目特点
 
@@ -34,7 +34,7 @@ OpenLoong开源项目是由人形机器人（上海）有限公司、上海人�
 2024.09.11
 
 1. 增加低阻尼模型分支“low_damping_model”，该模型与实物样机的关节响应基本一致，提供walk_wbc_joystick与 walk_mpc_wbc_joystick两个demo；
-2. 增加**更换模型**说明文档[Tutorial](https://atomgit.com/openloong/openloong-dyn-control/blob/master/Tutorial.md)。
+2. 增加**更换模型**说明文档[Tutorial](https://github.com/loongOpen/Openloong-dyn-control/blob/main/Tutorial.md)。
 
 ## 环境安装
 
@@ -60,7 +60,7 @@ sudo apt install libglu1-mesa-dev freeglut3-dev
 
 ```Bash
 # Clone
-git clone https://atomgit.com/openloong/openloong-dyn-control.git
+git clone https://github.com/loongOpen/Openloong-dyn-control.git
 
 # Build
 cd openloong-dyn-control
@@ -181,7 +181,7 @@ DataBus::LegState legState=DataBus::RS;                //初始腾空腿
 
 **模型替换说明**
 
-模型更换可参考[Tutorial](https://atomgit.com/openloong/openloong-dyn-control/blob/master/Tutorial.md)文档。
+模型更换可参考[Tutorial](https://github.com/loongOpen/Openloong-dyn-control/blob/main/Tutorial.md)文档。
 
 ## 参考文献
 
@@ -201,7 +201,7 @@ DataBus::LegState legState=DataBus::RS;                //初始腾空腿
 @software{Robot2024OpenLoong,
   author = {Humanoid Robot (Shanghai) Co., Ltd},
   title = {{OpenLoong-DynamicsControl: Motion control framework of humanoid robot based on MPC and WBC}},
-  url = {https://atomgit.com/openloong/openloong-dyn-control.git},
+  url = {https://github.com/loongOpen/Openloong-dyn-control.git},
   year = {2024}
 }
 ```
@@ -210,6 +210,6 @@ DataBus::LegState legState=DataBus::RS;                //初始腾空腿
 
 欢迎各位开发者参与本代码库的优化与提高！
 
-[💬 新建讨论](https://atomgit.com/openloong/openloong-dyn-control/discussions/new/choose) | [📝 反馈问题](https://atomgit.com/openloong/openloong-dyn-control/issues/create) | [📨 变更请求](https://atomgit.com/openloong/openloong-dyn-control/changes)
+[💬 新建讨论](https://github.com/orgs/loongOpen/discussions) | [📝 反馈问题](https://github.com/loongOpen/Openloong-dyn-control/issues) | [📨 变更请求](https://github.com/loongOpen/Openloong-dyn-control/pulls)
 
 您可以对现有内容进行意见评价、问题反馈、贡献您的原创内容等，对本代码的任何问题及意见，请联系<web@openloong.org.cn>
