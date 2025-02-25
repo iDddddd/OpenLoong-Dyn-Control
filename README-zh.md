@@ -212,4 +212,4 @@ DataBus::LegState legState=DataBus::RS;                //初始腾空腿
 
 [💬 新建讨论](https://github.com/orgs/loongOpen/discussions) | [📝 反馈问题](https://github.com/loongOpen/Openloong-dyn-control/issues) | [📨 变更请求](https://github.com/loongOpen/Openloong-dyn-control/pulls)
 
-您可以对现有内容进行意见评价、问题反馈、贡献您的原创内容等，对本代码的任何问题及意见，请联系<web@openloong.org.cn>
+您可以对现有内容进行意见评价、问题反馈、贡献您的原创内容等，对本代码的任何问题及意见，请联系<open@openloong.org.cn>
