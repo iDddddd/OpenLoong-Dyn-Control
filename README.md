@@ -216,7 +216,7 @@ If you use the code from this open-source project, please cite it as follows:
 
 Developers are welcome to contribute to the optimization and improvement of this code repository!
 
-[💬 Start a Discussion](https://atomgit.com/openloong/openloong-dyn-control/discussions/new/choose) | [📝 Report an Issue](https://atomgit.com/openloong/openloong-dyn-control/issues/create) | [📨 [Submit a Change Request](https://atomgit.com/openloong/openloong-dyn-control/changes)](https://atomgit.com/openloong/openloong-dyn-control/changes)
+[💬 Start a Discussion](https://atomgit.com/openloong/openloong-dyn-control/discussions/new/choose) | [📝 Report an Issue](https://atomgit.com/openloong/openloong-dyn-control/issues/create) | [📨 [Submit a Change Request]([Issues · loongOpen/Openloong-dyn-control (github.com)](https://github.com/loongOpen/Openloong-dyn-control/issues))]([https://atomgit.com/openloong/openloong-dyn-control/changes](https://github.com/loongOpen/Openloong-dyn-control/issues))
 
 For any questions or suggestions regarding this code, please contact<web@openloong.org.cn>
 
