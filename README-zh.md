@@ -6,7 +6,7 @@
 
 欢迎访问 🐉 OpenLoong 开源项目代码仓库！
 
-OpenLoong开源项目是由人形机器人（上海）有限公司、上海人形机器人制造业创新中心与开放原子开源基金会（OpenAtom Foundation）共同运营的开源项目。本仓库提供了一套基于 MPC 与 WBC 的仿人机器人控制框架，可部署在 Mujoco 仿真平台上。基于上海人形机器人创新中心“青龙”机器人模型，提供[行走](https://github.com/loongOpen/Openloong-dyn-control/blob/main/demo/walk_wbc.cpp)、[跳跃](https://github.com/loongOpen/Openloong-dyn-control/blob/main/demo/jump_mpc.cpp)、[盲踩障碍物](https://github.com/loongOpen/Openloong-dyn-control/blob/main/demo/walk_mpc_wbc.cpp)三种运动示例，在实物样机上实现了机器人的<b>行走</b>、<b>盲踩障碍</b>两种运动。
+OpenLoong开源项目是由人形机器人（上海）有限公司、国家地方共建人形机器人创新中心与开放原子开源基金会（OpenAtom Foundation）共同运营的开源项目。本仓库提供了一套基于 MPC 与 WBC 的仿人机器人控制框架，可部署在 Mujoco 仿真平台上。基于国家地方共建人形机器人创新中心“青龙”机器人模型，提供[行走](https://github.com/loongOpen/Openloong-dyn-control/blob/main/demo/walk_wbc.cpp)、[跳跃](https://github.com/loongOpen/Openloong-dyn-control/blob/main/demo/jump_mpc.cpp)、[盲踩障碍物](https://github.com/loongOpen/Openloong-dyn-control/blob/main/demo/walk_mpc_wbc.cpp)三种运动示例，在实物样机上实现了机器人的<b>行走</b>、<b>盲踩障碍</b>两种运动。
 
 ## 项目特点
 
