@@ -12,18 +12,17 @@ set(dirGlfw "third_party/glfw")
 set(dirPino "third_party/pinocchio")
 set(dirJson "third_party/jsoncpp")
 set(dirQuill "third_party/quill")
-set(dirQP "third_party/qpOASES")
 
 set(libURDF "third_party/urdfdom")
 
 set(incFmt "third_party/quill/quill/bundled")
 set(incBoost "third_party/boost")
 set(incMujoco "third_party/mujoco")
+set(incQP "third_party/qpOASES")
 
-
-set(allDir ${dirEigen} ${dirGlfw} ${dirPino} ${dirJson} ${dirQuill} ${dirQP} )
+set(allDir ${dirEigen} ${dirGlfw} ${dirPino} ${dirJson} ${dirQuill})
 set(allLib ${allDir} ${libURDF})
-set(allInc ${allDir} ${incFmt} ${incBoost} ${incMujoco})
+set(allInc ${allDir} ${incFmt} ${incBoost} ${incMujoco} ${incQP})
 
 include_directories(${allInc})
 include_directories("algorithm")
@@ -34,8 +33,10 @@ include_directories("sim_interface")
 message(${CMAKE_SYSTEM_PROCESSOR})
 if(${CMAKE_CXX_COMPILER} MATCHES "aarch64" OR ${CMAKE_SYSTEM_PROCESSOR} MATCHES "aarch64")
 	list(APPEND allLib "third_party/mujoco/lin_arm64")
+	list(APPEND allLib "third_party/qpOASES/lin_arm64")
 else()
 	list(APPEND allLib "third_party/mujoco/lin_x64")
+	list(APPEND allLib "third_party/qpOASES/lin_x64")
 endif()
 link_directories(${allLib})
 
@@ -45,7 +46,7 @@ file(GLOB HEADER_FILES *.h algorithm/*.h common/*.h math/*.h sim_interface/*.h)
 set(SOURCES ${C_SOURCES} ${CPP_SOURCES} ${HEADER_FILES})
 
 #链接库
-set(corLibs pinocchio urdfdom_model tinyxml console_bridge jsoncpp quill qpOASES)
+set(corLibs pinocchio urdfdom_model tinyxml console_bridge jsoncpp quill)
 set(simLibs glfw3)#mujoco区分x86/arm的方式不一样，在上面按link目录区分
 
 #根据架构，处理连接库
@@ -75,27 +76,28 @@ message(${sysCoreLibs})
 add_library(core ${SOURCES})
 target_link_libraries(core ${sysCoreLibs} pthread)
 
+
 #生成仿真可执行文件
 add_executable(walk_mpc_wbc demo/walk_mpc_wbc.cpp)
-target_link_libraries(walk_mpc_wbc core mujoco ${sysSimLibs} dl)
+target_link_libraries(walk_mpc_wbc core mujoco qpOASES ${sysSimLibs} dl)
 
 add_executable(walk_wbc demo/walk_wbc.cpp)
-target_link_libraries(walk_wbc core mujoco ${sysSimLibs} dl)
+target_link_libraries(walk_wbc core mujoco qpOASES ${sysSimLibs} dl)
 
 add_executable(jump_mpc demo/jump_mpc.cpp)
-target_link_libraries(jump_mpc core mujoco ${sysSimLibs} dl)
+target_link_libraries(jump_mpc core mujoco qpOASES ${sysSimLibs} dl)
 
 add_executable(float_control demo/float_control.cpp)
-target_link_libraries(float_control core mujoco ${sysSimLibs} dl)
+target_link_libraries(float_control core mujoco qpOASES ${sysSimLibs} dl)
 
 add_executable(wbc_speed_test demo/walk_wbc_speed_test.cpp)
-target_link_libraries(wbc_speed_test core mujoco ${sysSimLibs} dl)
+target_link_libraries(wbc_speed_test core mujoco qpOASES ${sysSimLibs} dl)
 
 add_executable(walk_wbc_joystick demo/walk_wbc_joystick.cpp)
-target_link_libraries(walk_wbc_joystick core mujoco ${sysSimLibs} dl)
+target_link_libraries(walk_wbc_joystick core mujoco qpOASES ${sysSimLibs} dl)
 
 add_executable(walk_mpc_wbc_joystick demo/walk_mpc_wbc_joystick.cpp)
-target_link_libraries(walk_mpc_wbc_joystick core mujoco ${sysSimLibs} dl)
+target_link_libraries(walk_mpc_wbc_joystick core mujoco qpOASES ${sysSimLibs} dl)
 
 add_executable(walk_wbc_staircase demo/walk_wbc_staircase.cpp)
-target_link_libraries(walk_wbc_staircase core mujoco ${sysSimLibs} dl)
+target_link_libraries(walk_wbc_staircase core mujoco qpOASES ${sysSimLibs} dl)
