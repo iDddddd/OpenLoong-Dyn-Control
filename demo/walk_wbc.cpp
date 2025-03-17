@@ -143,7 +143,6 @@ int main(int argc, const char** argv)
 
             // Enter here functions to send actuator commands, like:
             // arm-l: 0-6, arm-r: 7-13, head: 14,15, waist: 16-18, leg-l: 19-24, leg-r: 25-30
-
             if (simTime > startWalkingTime) {
                 jsInterp.setWzDesLPara(0, 1);
                 jsInterp.setVxDesLPara(xv_des, 2.0); // jsInterp.setVxDesLPara(0.9,1);
@@ -153,8 +152,8 @@ int main(int argc, const char** argv)
 
             if (simTime >= startSteppingTime) {
                 jsInterp.step();
-                RobotState.js_pos_des(2) = stand_legLength + foot_height; // pos z is not assigned in jyInterp
-                jsInterp.dataBusWrite(RobotState); // only pos x, pos y, theta z, vel x, vel y , omega z are rewrote.
+                jsInterp.setIniPos(RobotState.q(0), RobotState.q(1), stand_legLength + foot_height, RobotState.base_rpy(2));
+                jsInterp.dataBusWrite(RobotState); // only pos x, pos y, pos_z, theta z, vel x, vel y , omega z are rewrote.
                 // gait scheduler
                 gaitScheduler.start();
                 RobotState.motionState = DataBus::Walk;
@@ -169,15 +168,11 @@ int main(int argc, const char** argv)
 
             // ------------- WBC ------------
             // WBC input
-            RobotState.Fr_ff = Eigen::VectorXd::Zero(12);
             RobotState.des_ddq = Eigen::VectorXd::Zero(mj_model->nv);
             RobotState.des_dq = Eigen::VectorXd::Zero(mj_model->nv);
             RobotState.des_delta_q = Eigen::VectorXd::Zero(mj_model->nv);
-            RobotState.base_rpy_des << 0, 0, jsInterp.thetaZ;
-            RobotState.base_pos_des(2) = stand_legLength+foot_height;
-
-            RobotState.Fr_ff<<0,0,370,0,0,0,
-                    0,0,370,0,0,0;
+            RobotState.Fr_ff << 0,0,370,0,0,0,
+                                0,0,370,0,0,0;
 
             // adjust des_delata_q, des_dq and des_ddq to achieve forward walking
             if (simTime > startWalkingTime + 1) {
