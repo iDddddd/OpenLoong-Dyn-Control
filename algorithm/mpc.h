@@ -1,6 +1,6 @@
 /*
 This is part of OpenLoong Dynamics Control, an open project for the control of biped robot,
-Copyright (C) 2024 Humanoid Robot (Shanghai) Co., Ltd, under Apache 2.0.
+Copyright (C) 2024-2025 Humanoid Robot (Shanghai) Co., Ltd.
 Feel free to use in any purpose, and cite OpenLoong-Dynamics-Control in any style, to contribute to the advancement of the community.
  <https://gitee.com/panda_23/openloong-dyn-control.git>
  <web@openloong.org.cn>
