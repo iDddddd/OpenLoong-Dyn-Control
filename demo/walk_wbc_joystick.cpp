@@ -24,7 +24,7 @@ Feel free to use in any purpose, and cite OpenLoong-Dynamics-Control in any styl
 
 // MuJoCo load and compile model
 char error[1000] = "Could not load binary model";
-mjModel *mj_model = mj_loadXML("../models/scene_board.xml", 0, error, 1000);
+mjModel *mj_model = mj_loadXML("../models/scene_staircase.xml", 0, error, 1000);
 mjData *mj_data = mj_makeData(mj_model);
 
 //************************

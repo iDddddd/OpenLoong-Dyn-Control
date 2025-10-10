@@ -107,8 +107,36 @@ int main(int argc, const char** argv)
             mj_interface.dataBusWrite(RobotState);
 
             // inverse kinematics
-            fe_l_pos_L_des<<-0.018, 0.0937, -stand_legLength;
-            fe_r_pos_L_des<<-0.018, -0.0952, -stand_legLength;
+            // 在变量初始化部分修改摆动参数
+            // --------------------------
+            // 摆动参数
+            float swing_amplitude = 0.4;  // 增大摆动幅度至0.2米（原0.1米）
+            float swing_frequency = 0.5;  // 摆动频率保持不变
+            float swing_offset = 0.0;     // 摆动起始偏移量
+            
+            // 添加手部摆动参数
+            float hand_swing_amplitude = 0.15;  // 手部摆动幅度
+            // --------------------------
+            
+            // 在仿真循环中的逆运动学计算部分修改
+            // --------------------------
+            // 逆运动学 - 实现腿部大幅摆动和手部反向摆动
+            // 使用正弦函数创建周期性的位置变化
+            float swing_value = swing_amplitude * sin(2 * M_PI * swing_frequency * simTime + swing_offset);
+            
+            // 计算手部摆动值（与腿部相位相反）
+            float hand_swing_value = hand_swing_amplitude * sin(2 * M_PI * swing_frequency * simTime + swing_offset + M_PI);
+            
+            // 左腿前后摆动 (x方向变化)
+            fe_l_pos_L_des<<-0.018 + swing_value, 0.0937, -stand_legLength;
+            // 右腿前后摆动 (x方向变化，与左腿相反相位以实现来回摆动效果)
+            fe_r_pos_L_des<<-0.018 - swing_value, -0.0952, -stand_legLength;
+            
+            // 手部摆动 (x方向变化，与腿部相位相反)
+            hd_l_pos_L_des={-0.02 + hand_swing_value, 0.32, -0.159};
+            hd_r_pos_L_des={-0.02 - hand_swing_value, -0.32, -0.159};
+            // --------------------------
+            
             fe_l_eul_L_des<<-0.000, -0.00, -0.000;
             fe_r_eul_L_des<< 0.000, -0.00, 0.000;
             fe_l_rot_des= eul2Rot(fe_l_eul_L_des(0),fe_l_eul_L_des(1),fe_l_eul_L_des(2));  // roll, pitch, yaw

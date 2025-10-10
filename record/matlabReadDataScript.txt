@@ -18,6 +18,3 @@ baseLinVel=dataRec(:,246:248);
 base_vel_est=dataRec(:,249:251);
 base_rpy=dataRec(:,252:254);
 eul_est=dataRec(:,255:257);
-Ufe=dataRec(:,258:270);
-legState=dataRec(:,271:271);
-motionState=dataRec(:,272:272);

@@ -101,3 +101,6 @@ target_link_libraries(walk_mpc_wbc_joystick core mujoco qpOASES ${sysSimLibs} dl
 
 add_executable(walk_wbc_staircase demo/walk_wbc_staircase.cpp)
 target_link_libraries(walk_wbc_staircase core mujoco qpOASES ${sysSimLibs} dl)
+
+add_executable(g1_walk_wbc demo/g1_walk_wbc.cpp)
+target_link_libraries(g1_walk_wbc core mujoco qpOASES ${sysSimLibs} dl)
