@@ -7,6 +7,7 @@ Feel free to use in any purpose, and cite OpenLoong-Dynamics-Control in any styl
 */
 #pragma once
 #include <mujoco/mujoco.h>
+#include <vector>
 #include <GLFW/glfw3.h>
 #include <string>
 #include <memory>
@@ -50,6 +51,8 @@ public:
     void Mouse_move(double xpos, double ypos);
     // scroll callback
     void Scroll(double xoffset, double yoffset);
+    // 显示关节力矩
+    void displayJointTorques();
 
     ButtonState getButtonState();
 

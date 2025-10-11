@@ -27,6 +27,17 @@ char error[1000] = "Could not load binary model";
 mjModel *mj_model = mj_loadXML("../models/scene_staircase.xml", 0, error, 1000);
 mjData *mj_data = mj_makeData(mj_model);
 
+// 在文件开头的类定义之后添加外部变量声明
+extern UIctr uiController;
+
+extern "C" {
+    // 用于存储最新的力矩值
+    std::vector<double> g_motor_torques;
+}
+extern "C" {
+    std::vector<std::string> g_joint_names;
+}
+
 //************************
 int main(int argc, const char **argv)
 {
@@ -42,6 +53,10 @@ int main(int argc, const char **argv)
     JoyStickInterpreter jsInterp(mj_model->opt.timestep);                              // desired baselink velocity generator
     DataLogger logger("../record/datalog.log");                                        // data logger
     StateEst StateModule(0.001);
+
+    // 初始化关节名称
+    g_joint_names = mj_interface.JointName;
+
 
     // variables ini
     double stand_legLength = 1.01; // desired baselink height
@@ -301,7 +316,9 @@ int main(int argc, const char **argv)
                 RobotState.motors_vel_des = eigen2std(RobotState.wbc_dq_final);
                 RobotState.motors_tor_des = eigen2std(RobotState.wbc_tauJointRes);
             }
-
+            // 保存最新的力矩值用于显示
+            g_motor_torques = RobotState.motors_tor_out;
+    
             pvtCtr.dataBusRead(RobotState);
             if (simTime <= openLoopCtrTime)
             {

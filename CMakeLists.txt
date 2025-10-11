@@ -84,23 +84,26 @@ target_link_libraries(walk_mpc_wbc core mujoco qpOASES ${sysSimLibs} dl)
 add_executable(walk_wbc demo/walk_wbc.cpp)
 target_link_libraries(walk_wbc core mujoco qpOASES ${sysSimLibs} dl)
 
-add_executable(jump_mpc demo/jump_mpc.cpp)
-target_link_libraries(jump_mpc core mujoco qpOASES ${sysSimLibs} dl)
+# add_executable(jump_mpc demo/jump_mpc.cpp)
+# target_link_libraries(jump_mpc core mujoco qpOASES ${sysSimLibs} dl)
 
-add_executable(float_control demo/float_control.cpp)
-target_link_libraries(float_control core mujoco qpOASES ${sysSimLibs} dl)
+# add_executable(float_control demo/float_control.cpp)
+# target_link_libraries(float_control core mujoco qpOASES ${sysSimLibs} dl)
 
-add_executable(wbc_speed_test demo/walk_wbc_speed_test.cpp)
-target_link_libraries(wbc_speed_test core mujoco qpOASES ${sysSimLibs} dl)
+# add_executable(wbc_speed_test demo/walk_wbc_speed_test.cpp)
+# target_link_libraries(wbc_speed_test core mujoco qpOASES ${sysSimLibs} dl)
 
 add_executable(walk_wbc_joystick demo/walk_wbc_joystick.cpp)
 target_link_libraries(walk_wbc_joystick core mujoco qpOASES ${sysSimLibs} dl)
 
-add_executable(walk_mpc_wbc_joystick demo/walk_mpc_wbc_joystick.cpp)
-target_link_libraries(walk_mpc_wbc_joystick core mujoco qpOASES ${sysSimLibs} dl)
+# add_executable(walk_mpc_wbc_joystick demo/walk_mpc_wbc_joystick.cpp)
+# target_link_libraries(walk_mpc_wbc_joystick core mujoco qpOASES ${sysSimLibs} dl)
 
-add_executable(walk_wbc_staircase demo/walk_wbc_staircase.cpp)
-target_link_libraries(walk_wbc_staircase core mujoco qpOASES ${sysSimLibs} dl)
+# add_executable(walk_wbc_staircase demo/walk_wbc_staircase.cpp)
+# target_link_libraries(walk_wbc_staircase core mujoco qpOASES ${sysSimLibs} dl)
 
 add_executable(g1_walk_wbc demo/g1_walk_wbc.cpp)
 target_link_libraries(g1_walk_wbc core mujoco qpOASES ${sysSimLibs} dl)
+
+# add_executable(g1_float_control demo/g1_float_control.cpp)
+# target_link_libraries(g1_float_control core mujoco qpOASES ${sysSimLibs} dl)

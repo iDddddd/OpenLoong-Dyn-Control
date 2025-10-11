@@ -25,7 +25,16 @@ Feel free to use in any purpose, and cite OpenLoong-Dynamics-Control in any styl
 char error[1000] = "Could not load binary model";
 mjModel* mj_model = mj_loadXML("../g1_description/g1_board.xml", 0, error, 1000);
 mjData* mj_data = mj_makeData(mj_model);
+// 在文件开头的类定义之后添加外部变量声明
+extern UIctr uiController;
 
+extern "C" {
+    // 用于存储最新的力矩值
+    std::vector<double> g_motor_torques;
+}
+extern "C" {
+    std::vector<std::string> g_joint_names;
+}
 //************************
 // main function
 int main(int argc, const char** argv)
@@ -33,7 +42,7 @@ int main(int argc, const char** argv)
     // ini classes
     UIctr uiController(mj_model,mj_data);   // UI control for Mujoco
     MJ_Interface mj_interface(mj_model, mj_data); // data interface for Mujoco
-    Pin_KinDyn kinDynSolver("../g1_description/g1_29dof.urdf"); // kinematics and dynamics solver
+    Pin_KinDyn kinDynSolver("../g1_description/g1.urdf"); // kinematics and dynamics solver
     DataBus RobotState(kinDynSolver.model_nv); // data bus
     WBC_priority WBC_solv(kinDynSolver.model_nv, 18, 22, 0.7, mj_model->opt.timestep); // WBC solver
     GaitScheduler gaitScheduler(0.4, mj_model->opt.timestep); // gait scheduler
@@ -42,7 +51,9 @@ int main(int argc, const char** argv)
     JoyStickInterpreter jsInterp(mj_model->opt.timestep); // desired baselink velocity generator
     DataLogger logger("../record/g1_datalog.log"); // data logger
     StateEst StateModule(mj_model->opt.timestep);
-
+    // 初始化关节名称
+    g_joint_names = mj_interface.JointName;
+    
      // variables ini
     double stand_legLength = 0.793; // G1 站立高度
     double foot_height = 0.05;
@@ -211,7 +222,9 @@ int main(int argc, const char** argv)
                 RobotState.motors_vel_des = eigen2std(RobotState.wbc_dq_final);
                 RobotState.motors_tor_des = eigen2std(RobotState.wbc_tauJointRes);
             }
-
+            // 保存最新的力矩值用于显示
+            g_motor_torques = RobotState.motors_tor_out;
+    
             pvtCtr.dataBusRead(RobotState);
             if (simTime<=3)
             {
@@ -219,23 +232,22 @@ int main(int argc, const char** argv)
             }
             else
             {
-                double kp = 1.;
-                double kd = 1.;
+                double kp = 1000;
+                double kd = 1;
 
-               // G1 的关节名称和参数需要根据实际情况调整
-                pvtCtr.setJointPD(400 * kp, 15 * kd, "left_hip_roll_joint");
-                pvtCtr.setJointPD(200 * kp, 10 * kd, "left_hip_yaw_joint");
-                pvtCtr.setJointPD(300 * kp, 10 * kd, "left_hip_pitch_joint");
-                pvtCtr.setJointPD(300 * kp, 14 * kd, "left_knee_joint");
-                pvtCtr.setJointPD(300 * kp, 18 * kd, "left_ankle_pitch_joint");
-                pvtCtr.setJointPD(300 * kp, 16 * kd, "left_ankle_roll_joint");
+                pvtCtr.setJointPD(400 * kp, 15 * kd, "J_hip_l_roll");
+                pvtCtr.setJointPD(200 * kp, 10 * kd, "J_hip_l_yaw");
+                pvtCtr.setJointPD(300 * kp, 10 * kd, "J_hip_l_pitch");
+                pvtCtr.setJointPD(300 * kp, 14 * kd, "J_knee_l_pitch");
+                pvtCtr.setJointPD(300 * kp, 18 * kd, "J_ankle_l_pitch");
+                pvtCtr.setJointPD(300 * kp, 16 * kd, "J_ankle_l_roll");
 
-                pvtCtr.setJointPD(400 * kp, 15 * kd, "right_hip_roll_joint");
-                pvtCtr.setJointPD(200 * kp, 10 * kd, "right_hip_yaw_joint");
-                pvtCtr.setJointPD(300 * kp, 10 * kd, "right_hip_pitch_joint");
-                pvtCtr.setJointPD(300 * kp, 14 * kd, "right_knee_joint");
-                pvtCtr.setJointPD(300 * kp, 18 * kd, "right_ankle_pitch_joint");
-                pvtCtr.setJointPD(300 * kp, 16 * kd, "right_ankle_roll_joint");
+                pvtCtr.setJointPD(400 * kp, 15 * kd, "J_hip_r_roll");
+                pvtCtr.setJointPD(200 * kp, 10 * kd, "J_hip_r_yaw");
+                pvtCtr.setJointPD(300 * kp, 10 * kd, "J_hip_r_pitch");
+                pvtCtr.setJointPD(300 * kp, 14 * kd, "J_knee_r_pitch");
+                pvtCtr.setJointPD(300 * kp, 18 * kd, "J_ankle_r_pitch");
+                pvtCtr.setJointPD(300 * kp, 16 * kd, "J_ankle_r_roll");
 
                 pvtCtr.calMotorsPVT();
             }

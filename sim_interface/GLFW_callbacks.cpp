@@ -15,6 +15,11 @@ UIctr::UIctr(mjModel *modelIn, mjData *dataIn) {
     scn=mjvScene();
     con=mjrContext();
 }
+// 声明外部力矩变量
+extern std::vector<double> g_motor_torques;
+
+extern std::vector<std::string> g_joint_names;
+
 
 
 static void scroll(GLFWwindow* window, double xoffset, double yoffset)
@@ -100,6 +105,49 @@ void UIctr::createWindow(const char* windowTitle, bool saveVideo) {
             mju_error("Could not open rgbfile for writing");
     }
 }
+void UIctr::displayJointTorques() {
+    // 检查力矩数据是否有效
+    if (g_motor_torques.empty()) {
+        return;
+    }
+    
+    // 获取视口信息
+    mjrRect viewport = {0, 0, 0, 0};
+    glfwGetFramebufferSize(window, &viewport.width, &viewport.height);
+    
+    // 定义要显示的腿部关节索引和名称
+    std::vector<int> leg_joint_indices = {
+        19, 20, 21, 22, 23, 24, // 左腿关节索引
+        25, 26, 27, 28, 29, 30  // 右腿关节索引
+    };
+    
+    std::vector<std::string> leg_joint_names = {
+        "L_Hip_Roll", "L_Hip_Yaw", "L_Hip_Pitch", "L_Knee", "L_Ankle_Pitch", "L_Ankle_Roll",
+        "R_Hip_Roll", "R_Hip_Yaw", "R_Hip_Pitch", "R_Knee", "R_Ankle_Pitch", "R_Ankle_Roll"
+    };
+    
+    // 创建一个足够大的buffer来存储所有文本
+    char buffer[1024];  // 增加buffer大小以容纳所有行
+    int offset = 0;
+    
+    // 添加标题
+    offset += snprintf(buffer + offset, sizeof(buffer) - offset, "=== joint torques (Nm) ===\n");
+    
+    // 添加所有关节力矩信息
+    for (size_t i = 0; i < leg_joint_indices.size() && i < leg_joint_names.size(); ++i) {
+        int idx = leg_joint_indices[i];
+        if (idx >= 0 && idx < (int)g_motor_torques.size()) {
+            // 格式化输出，确保对齐
+            offset += snprintf(buffer + offset, sizeof(buffer) - offset, 
+                              "%-18s: %6.2f\n", 
+                              leg_joint_names[i].c_str(), g_motor_torques[idx]);
+        }
+    }
+    
+    // 一次性显示所有文本
+    mjr_overlay(mjFONT_NORMAL, mjGRID_BOTTOMRIGHT, viewport, buffer, NULL, &con);
+}
+
 
 void UIctr::updateScene() {
     if (!isContinuous)
@@ -113,36 +161,36 @@ void UIctr::updateScene() {
     buttonRead.key_h=false;
     buttonRead.key_j=false;
 
-    // get framebuffer viewport
+    // 获取帧缓冲区视口
     mjrRect viewport = {0, 0, 0, 0};
     glfwMakeContextCurrent(window);
     glfwGetFramebufferSize(window, &viewport.width, &viewport.height);
 
-//        UIctr::opt.frame = mjFRAME_WORLD; //mjFRAME_BODY
-//        UIctr::opt.flags[mjVIS_COM]  = 1 ; //mjVIS_JOINT;
-//        UIctr::opt.flags[mjVIS_JOINT]  = 1 ;
-
-    // update scene and render
+    // 更新场景并渲染
     mjv_updateScene(mj_model, mj_data, &opt, NULL, &cam, mjCAT_ALL, &scn);
-    glfwGetFramebufferSize(window, &viewport.width, &viewport.height);
     mjr_render(viewport, &scn, &con);
-    std::string timeStr = "Simulation Time: " + std::to_string(mj_data->time);
+    
+    // 所有的overlay渲染必须在mjr_render之后、glfwSwapBuffers之前调用
+    
+    // 显示时间信息
     char buffer[100];
     std::sprintf(buffer, "Time: %.3f", mj_data->time);
-
     mjr_overlay(mjFONT_NORMAL, mjGRID_TOPRIGHT, viewport, buffer, NULL, &con);
+    
+    // 显示关节力矩
+    displayJointTorques();
 
-
-    // swap OpenGL buffers (blocking call due to v-sync)
-    glfwSwapBuffers(window);
-    // process pending GUI events, call GLFW callbacks
-    glfwPollEvents();
-
+    // 保存视频帧（如果启用）- 必须在所有overlay渲染之后、缓冲区交换之前
     if (save_video)
     {
         mjr_readPixels(image_rgb_, image_depth_, viewport, &con);
         fwrite(image_rgb_, sizeof(unsigned char), 3*width*height, file);
     }
+    
+    // 现在再交换缓冲区
+    glfwSwapBuffers(window);
+    // 处理GUI事件
+    glfwPollEvents();
 }
 
 
